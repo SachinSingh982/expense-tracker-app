@@ -1,40 +1,18 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import ExpenseSummary from "./ExpenseSummary";
 import ExpenseList from "./ExpenseList";
 import { GlobalStyles } from "../../constants/styles";
 
-const DUMMY_EXPENSES = [
-  {
-    id: 1,
-    description: "Pair of shoes",
-    amount: 39.99,
-    date: new Date("2024-10-1"),
-  },
-  {
-    id: 2,
-    description: "Jacket",
-    amount: 59.99,
-    date: new Date("2024-8-1"),
-  },
-  {
-    id: 3,
-    description: "Apple",
-    amount: 1.99,
-    date: new Date("2024-8-7"),
-  },
-  {
-    id: 5,
-    description: "Watch",
-    amount: 39.99,
-    date: new Date("2024-2-12"),
-  },
-];
+const ExpenseOutput = ({ expenses, expensePeriod, fallBackText }) => {
+  let content = <Text style={styles.fallBackText}>{fallBackText}</Text>;
 
-const ExpenseOutput = ({ expenses = DUMMY_EXPENSES, expensePeriod }) => {
+  if (expenses.length > 0) {
+    content = <ExpenseList expenses={expenses} />;
+  }
   return (
     <View style={styles.container}>
       <ExpenseSummary expenses={expenses} periodName={expensePeriod} />
-      <ExpenseList expenses={expenses} />
+      {content}
     </View>
   );
 };
@@ -56,5 +34,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 10,
+  },
+  fallBackText: {
+    color: GlobalStyles.colors.primary400,
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 32,
   },
 });

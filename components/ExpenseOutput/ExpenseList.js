@@ -4,7 +4,7 @@ import ExpenseItem from "./ExpenseItem";
 const renderExpenseItem = (data) => {
   return (
     <>
-      <ExpenseItem data={data.item} />
+      <ExpenseItem data={data.item} id={data.item.id} />
     </>
   );
 };
